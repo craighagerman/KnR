@@ -1,24 +1,17 @@
 /*
    Exercise 1-8
-   write a program to copy its input to its output, replacing each string of one or more 
-   blanks by a single blank
+   write a program to count blanks, tabs and newlines
 */
 
 #include <stdio.h>
 
 main()
 {
-   int c, blank;
-   blank = 0;
+   int c, nl;
+   nl = 0;
    
    while(( c = getchar()) != EOF)
-      if (c != ' ') {
-         putchar(c);
-         blank = 0;
-      }
-      else if ((c == ' ') && (blank == 0)){
-         putchar(c);
-         blank++;
-      }
-
+      if ((c == ' ') || (c =='\n') || (c == '\t'))
+         ++nl;
+   printf("%d\n", nl);
 }
