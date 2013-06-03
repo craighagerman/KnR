@@ -35,9 +35,10 @@ int mygetline(char line[], int max)
 
 void chomp(char[] line) 
 {
-   
    for (int i = 0; line[i] != '\0'; i++) {
-   
+      if (line[i] == ' ' && line[i] == '\t') {
+         line[i] = '-';
+      }
    }
    
 }
