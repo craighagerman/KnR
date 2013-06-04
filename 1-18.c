@@ -8,15 +8,17 @@
 
 
 int mygetline(char line[], int max);
-void chomp(char[] line);
+int chomp(char line[], int len);
 
 main()
 {
    int len = 0;
+   int newlen = 0;
    char line[MAXLINE];
    
    while((len = mygetline(line, MAXLINE)) > 1 ) {
-      printf("%s \n", chomp(line));
+      newlen = chomp(line, len);
+      printf("Len: %d-%d, \n -%s-\n", len, newlen, line);
    }
 }
 
@@ -33,12 +35,13 @@ int mygetline(char line[], int max)
 }
 
 
-void chomp(char[] line) 
-{
-   for (int i = 0; line[i] != '\0'; i++) {
-      if (line[i] == ' ' && line[i] == '\t') {
-         line[i] = '-';
-      }
-   }
-   
+int chomp(char line[], int len) 
+{  
+   int i = len-1;
+   for(i; i >=0 && (line[i]=='\0' || line[i]==' ' || line[i]=='\t'); i--)
+      ;  
+   if (i<1)
+      i = 0;
+   line[++i] = '\0';
+   return i;
 }
