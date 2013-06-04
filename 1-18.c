@@ -42,6 +42,6 @@ int chomp(char line[], int len)
       ;  
    if (i<1)
       i = 0;
-   line[++i] = '\0';
+  line[++i] = '\0';
    return i;
 }
