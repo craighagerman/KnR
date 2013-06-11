@@ -5,47 +5,50 @@
 
 #include <stdio.h>
 #define MAXLINE 1000
+#define COLUMNS 4
 
 int mygetline(char line[], int max);
-void detab(char line[], int cols);
+void detab(char buf[], char line[], int cols);
 
 main() 
 {
    int len = 0;
+   char buffer[MAXLINE];
    char line[MAXLINE];
    
-   while ((len = mygetline(line, MAXLINE)) > 1 ) {
-      detab(line, 2);
-      printf("%s\n", line);
+   while ((len = mygetline(buffer, MAXLINE)) > 1 ) {
+      detab(buffer, line, COLUMNS);
+         printf("%s\n", line);
    }
    
 }
 
-int mygetline(char line[], int max) 
+int mygetline(char buf[], int max) 
 {
    char c;
    int i = 0;
    for (i; i<max && ((c=getchar()) != EOF && c != '\n'); i++) {
-      line[i] = c;
+      buf[i] = c;
    }
-   line[++i] = '\0';
+   buf[i] = '\0';
    return i;
 }
 
-void detab(char line[], int cols)
+void detab(char buf[], char line[], int cols)
 {
-   int i, j, k=0;
+   int i, j, k;
+   i = j = k = 0;
    char c;
-   char s = ' ';
-   char templine[MAXLINE];
+   char space = ' ';
    
-   for (i; (c=line[i]) != '\0'; i++) {
-      if (c == '\t')
+   for (i; k<MAXLINE && (c=buf[i]) != '\0'; i++) {
+      if (c == '\t') {
          for (j=0; j<cols; j++) {
-            templine[k++] = s;
+            line[k++] = space;
          }
+      }
       else
-         templine[k++] = c;
+         line[k++] = c;
    }
-   line = templine;
+   line[k] = '\0';
 }
